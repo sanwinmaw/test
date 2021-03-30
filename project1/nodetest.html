@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>handlebars sample</title>
+    <script type="text/javascript" src="../node_modules\jquery\dist\jquery.min.js"></script>
+    <script type="text/javascript" src="../node_modules\handlebars\dist\handlebars.min.js"></script>
+    <script type="text/x-handlebars-template" id="template">
+        <div class="entry">
+            <h1>{{title}}</h1>
+               <div class="body">
+                   {{body}}
+               </div>
+            </div>
+            {{#with author}}
+                <h2>By {{firstName}}{{lastName4}}</h2>
+            {{/with}}
+
+            <ul>
+                {{#each people}}
+                <li><a href="/posts/{{../path}}#{{id}}">{{firstName}}{{lastName}}</a></li>
+            {{/each}}
+            </ul>
+
+            {{#if name}}
+                <h1>{{name.firstName}}{{name.lastName}}</h1>
+            {{else}}
+                <h1>Unkonwn author</h1>
+            {{/if}}
+            </script>
+
+            {{#unless license}}
+                <h3 class="warning">warining: This entry does not have</h3>
+            {{/unless}}
+
+            <h1>By {{fullName author}}</h1>
+
+            {{#list people}}{{firstName}}{{lastName}}{{/list}}
+
+            <ul>
+                {{#each items}}
+                <li>{{agree_button}}</li>
+                {{/each}}
+            </ul>
+        </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var source = $("#template").html();
+            var template = Handlebars.compile(source);
+            var context = {
+                title : "Handlebars test",
+                body  : "Handlebars is javascript template",
+                author : {
+                    firstName : "Charles",
+                    lastName : "jolley",
+                },
+
+                name:{
+                    firstName : "Charles",
+                    lastName : "jolley",
+                },
+                path:"people",
+                people : [{
+                    id : "10",
+                    firstName : "Charles",
+                    lastName : "jolley",
+
+
+                },
+            
+            ]
+            }
+            var result = template(context);
+            console.log(result);
+            $("#contents").html(result);
+
+        });
+    </script>
+</head>
+<body>
+    <div id="contents"></div>
+</body>
+</html>
